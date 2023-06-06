@@ -20,12 +20,15 @@ setTimeout(() => {
 
     const handleBusinessId = () => {
         document.querySelectorAll('.rcx-sidebar-item').forEach(el => {
-            const title = el.querySelector('.rcx-sidebar-item__title').textContent
-            if (!title.endsWith(CLINIC_ID)) {
+            const titleEl = el.querySelector('.rcx-sidebar-item__title')
+            if (!titleEl.textContent.endsWith(CLINIC_ID) && titleEl.getAttribute('business_id') !== CLINIC_ID) {
                 el.style.visibility = 'hidden'
                 // Inner virtual list lib has conflict if we hide element entirely
                 el.style.height = '1px'
                 el.style.padding = '0px'
+            } else {
+                titleEl.setAttribute('business_id', CLINIC_ID)
+                titleEl.textContent = titleEl.textContent.replace('_' + CLINIC_ID, '')
             }
         })
     }
